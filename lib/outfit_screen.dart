@@ -30,7 +30,7 @@ class OutfitScreenState extends State<OutfitScreen> {
   final TextEditingController _categoryController = TextEditingController();
   String _name = '';
   String _brand = '';
-  int _category = 1;
+  int _category = 0;
   String _image = '';
   int _minTemp = 10;
   int _maxTemp = 20;
@@ -86,8 +86,8 @@ class OutfitScreenState extends State<OutfitScreen> {
           IconButton(
             icon: const Icon(Icons.check),
             onPressed: () {
-              if (_nameController.text.isEmpty || _brandController.text.isEmpty) {
-                ();
+              if (_nameController.text.isEmpty) {
+                null;
               } else {
                 final outfitItem = Outfit(
                   id: widget.originalItem?.id ?? ClosetManager().lastId(),
@@ -209,6 +209,15 @@ class OutfitScreenState extends State<OutfitScreen> {
     );
   }
 
+  String? get _errorText {
+    final text = _nameController.value.text;
+    if (text.isEmpty) {
+      return 'Name can\'t be empty';
+    }
+    return null;
+  }
+
+
   Widget buildNameField() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -221,6 +230,7 @@ class OutfitScreenState extends State<OutfitScreen> {
           controller: _nameController,
           decoration: InputDecoration(
             hintText: 'E.g. T-shirt, Pants',
+            errorText: _errorText,
           ),
         ),
       ],
@@ -247,9 +257,8 @@ class OutfitScreenState extends State<OutfitScreen> {
 
   Widget buildCategoryField() {
     List<OutfitCategory> menuItems = DataManager.getAllOutfitOutfitCategories();
-    OutfitCategory? selectedMenu;
     return DropdownMenu<OutfitCategory>(
-      initialSelection: menuItems.firstWhere((category) => category.id == 1),
+      initialSelection: menuItems.firstWhere((category) => category.id == _category),
       controller: _categoryController,
       width: MediaQuery.sizeOf(context).width / 2,
       hintText: "Select category",
