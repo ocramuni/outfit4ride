@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:outfit4ride/ride_screen.dart';
 import 'package:outfit4ride/settings_manager.dart';
 import 'package:outfit4ride/settings_screen.dart';
 import 'package:provider/provider.dart';
@@ -58,7 +59,7 @@ class Outfit4RideAppHome extends StatefulWidget {
 class _Outfit4RideAppHomeState extends State<Outfit4RideAppHome> {
   int _selectedTabIndex = 0;
   final List<Widget> _pages = <Widget>[
-    Container(color: Colors.blue),
+    RideScreen(),
     ClosetScreen(),
     SettingsScreen(),
   ];
@@ -95,7 +96,6 @@ class _Outfit4RideAppHomeState extends State<Outfit4RideAppHome> {
         ],
       ),
       body: IndexedStack(
-        //sizing: StackFit.expand,
         index: _selectedTabIndex,
         children: _pages,
       ),
