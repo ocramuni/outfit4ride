@@ -12,7 +12,9 @@ class ForecastScreen extends StatelessWidget{
     return Scaffold(
         appBar: AppBar(
           elevation: 0.0,
-          title: Text("Ready to Ride"),
+          title: Text("Ready to Ride",
+            style: TextStyle(fontSize: 28),
+          ),
         ),
         body: Column(
           children: [

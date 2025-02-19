@@ -14,61 +14,49 @@ class SettingsScreen extends StatefulWidget {
 class SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(40),
-        child: AppBar(
-          title: Text("Settings"),
-        ),
-      ),
-      body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              child: ListView(
-                children: [
-                  buildTemperatureAppearanceRow(),
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget buildTemperatureAppearanceRow() {
-    return Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Consumer<SettingsManager>(
-            builder: (context, settingsManager, child) {
-          return Column(children: [
-            ListTile(
-              contentPadding: EdgeInsets.fromLTRB(0, 0, 0, 15),
-              leading: Image.asset(
-                'assets/thermometer.png',
-              ),
-              title: Text('Temperature appearance'),
-              subtitle: Text(settingsManager.tOffset.round().toString()),
+    return Consumer<SettingsManager>(
+      builder: (context, manager, child) {
+        return Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: ListView(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                        child: Column(children: [
+                          ListTile(
+                            contentPadding: EdgeInsets.fromLTRB(0, 0, 0, 15),
+                            leading: Image.asset('assets/thermometer.png',),
+                            title: Text('Temperature appearance',
+                            style: Theme.of(context).textTheme.titleLarge,),
+                            subtitle: Text(manager.tOffset.round().toString(),
+                              style: Theme.of(context).textTheme.titleMedium,),
+                          ),
+                          Slider(
+                            value: manager.tOffset,
+                            min: -10,
+                            max: 10,
+                            divisions: 20,
+                            activeColor: Colors.red,
+                            inactiveColor: Colors.blue,
+                            thumbColor: manager.tOffset == 0 ? Color(0xFFF1600D) : manager.tOffset > 0 ? Colors.red : Colors.blue,
+                            label: manager.tOffset.round().toString(),
+                            onChanged: (double value) {
+                              setState(() {
+                                manager.tOffset = value;
+                              });
+                            },
+                          )]
+                        ),
+                      )
+                  ],
+                ),
+              )],
             ),
-            Slider(
-              value: settingsManager.tOffset,
-              min: -10,
-              max: 10,
-              divisions: 20,
-              activeColor: Colors.red,
-              inactiveColor: Colors.blue,
-              thumbColor: settingsManager.tOffset == 0 ? Colors.orange : settingsManager.tOffset > 0 ? Colors.red : Colors.blue,
-              label: settingsManager.tOffset.round().toString(),
-              onChanged: (double value) {
-                setState(() {
-                  settingsManager.tOffset = value;
-                });
-              },
-            )
-          ]);
-        })
-    );
-  }
+          );
+        }
+      );
+    }
 }

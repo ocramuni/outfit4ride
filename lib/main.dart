@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:outfit4ride/ride_screen.dart';
 import 'package:outfit4ride/settings_manager.dart';
 import 'package:outfit4ride/settings_screen.dart';
+import 'package:outfit4ride/theme.dart';
 import 'package:provider/provider.dart';
 
 import 'package:outfit4ride/closet_manager.dart';
@@ -37,10 +38,7 @@ class _Outfit4RideAppState extends State<Outfit4RideApp> {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Outfit4Ride',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
+        theme: Outfit4RideTheme.appTheme(),
         home: const Outfit4RideAppHome(title: 'Outfit4Ride'),
       ),
     );
@@ -67,8 +65,8 @@ class _Outfit4RideAppHomeState extends State<Outfit4RideAppHome> {
   AppBar _appBar(context) {
     return AppBar(
       centerTitle: true,
-      backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      title: Text(widget.title),
+      title: Text(widget.title,
+          style: TextStyle(fontFamily: 'Outrun', fontStyle: FontStyle.normal)),
     );
   }
 

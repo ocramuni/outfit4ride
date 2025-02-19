@@ -38,7 +38,6 @@ class _RideScreenState extends State<RideScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     buildTrackField(),
-                    const SizedBox(height: 30.0),
                     buildDateField(),
                     const SizedBox(height: 30.0),
                     buildDurationField(),
@@ -71,6 +70,9 @@ class _RideScreenState extends State<RideScreen> {
 
   Widget buildTrackField() {
     return IconButton(
+      constraints: BoxConstraints.expand(
+        height: 250
+      ),
       onPressed: () async {
         result = await FilePicker.platform.pickFiles(allowMultiple: false);
         if (result != null) {
@@ -82,8 +84,6 @@ class _RideScreenState extends State<RideScreen> {
       },
       icon: Image(
         image: _image,
-        width: 200,
-        height: 200,
       ),
     );
   }
@@ -105,7 +105,7 @@ class _RideScreenState extends State<RideScreen> {
     Widget buildDateField() {
       return ElevatedButton.icon(
         label: Text("${_selectedDate.toLocal()}".split(' ')[0],
-        //style: TextStyle(fontSize: 55, fontWeight: FontWeight.bold),
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         icon: const Icon(Icons.edit_calendar),
         onPressed: ()  {
@@ -124,11 +124,13 @@ class _RideScreenState extends State<RideScreen> {
     final String startTime = _timeToString(_timeRange.startTime);
     final String endTime = _timeToString(_timeRange.endTime);
     return ElevatedButton.icon(
-      label: Text("Duration: from $startTime to $endTime"),
+      label: Text("Duration: from $startTime to $endTime",
+        style: Theme.of(context).textTheme.titleSmall,),
       icon: const Icon(Icons.access_time_outlined),
         onPressed: () async {
         final resultTimeRange = await showTimeRangePicker(context: context,
-        start: _startTime,
+            interval: Duration(minutes: 30),
+            start: _startTime,
         end: _endTime);
         setState(()  {
           _startTime = resultTimeRange.startTime;
@@ -142,16 +144,17 @@ class _RideScreenState extends State<RideScreen> {
 
   Widget buildButtonFields() {
     return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        //foregroundColor: Colors.green,
-        //backgroundColor: Colors.white,
-        disabledBackgroundColor: Colors.grey,
-        disabledForegroundColor: Colors.grey,
-        shadowColor: Colors.greenAccent,
-        elevation: 3,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(32.0)),
-      ),
+        style: ElevatedButton.styleFrom(
+          foregroundColor: Color(0xFFF1600D),
+          backgroundColor: Color(0xFFFEF6ED),
+          textStyle: Theme.of(context).textTheme.titleLarge,
+          shape: RoundedRectangleBorder(
+              side: BorderSide(
+                  color: Color(0xFFF1600D),
+                  width: 2.0),
+              borderRadius: BorderRadius.circular(32.0),
+          ),
+        ),
         onPressed: () {
           _isDisable? null :  Navigator.push(
               context,
@@ -161,7 +164,9 @@ class _RideScreenState extends State<RideScreen> {
               )
           );
         },
-        child: Text("Ride")
+        child: Text("RIDE NOW",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
     );
   }
 

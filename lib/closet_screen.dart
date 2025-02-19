@@ -101,18 +101,20 @@ class _ClosetScreenState extends State<ClosetScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("Delete"),
-          content: const Text(
-            "Are you sure to delete this outfit?"
+          title: Text("Delete",
+              style: Theme.of(context).textTheme.titleLarge),
+          content: Text(
+            "Are you sure to delete this outfit?",
+              style: Theme.of(context).textTheme.titleMedium
           ),
           actions: <Widget> [
             ElevatedButton(
               onPressed: () => Navigator.of(context).pop(true),
-              child: const Text("Yes")
+              child: Text("YES", style: Theme.of(context).textTheme.titleSmall)
             ),
             ElevatedButton(
               onPressed: () => Navigator.of(context).pop(false),
-              child: const Text("No")
+              child:  Text("NO", style: Theme.of(context).textTheme.titleMedium)
             ),
           ]
         );

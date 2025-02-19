@@ -139,9 +139,13 @@ class OutfitScreenState extends State<OutfitScreen> {
 
   Text _getTitle() {
     if (widget.isUpdating) {
-      return Text('Edit outfit');
+      return Text('Edit outfit',
+        style: TextStyle(fontSize: 28),
+      );
     } else {
-      return Text('Add new outfit');
+      return Text('Add new outfit',
+        style: TextStyle(fontSize: 28),
+      );
     }
   }
 
@@ -224,7 +228,7 @@ class OutfitScreenState extends State<OutfitScreen> {
       children: [
         Text(
           'Name',
-          style: Theme.of(context).textTheme.headlineSmall,
+          style: Theme.of(context).textTheme.headlineMedium,
         ),
         TextField(
           controller: _nameController,
@@ -243,7 +247,7 @@ class OutfitScreenState extends State<OutfitScreen> {
       children: [
         Text(
           'Brand',
-          style: Theme.of(context).textTheme.headlineSmall,
+          style: Theme.of(context).textTheme.headlineMedium,
         ),
         TextField(
           controller: _brandController,
@@ -266,7 +270,7 @@ class OutfitScreenState extends State<OutfitScreen> {
       enableFilter: true,
       label: Text(
         'Category',
-        style: Theme.of(context).textTheme.headlineSmall,
+        style: Theme.of(context).textTheme.headlineMedium,
       ),
       onSelected: (OutfitCategory? menu) {
         _category = menu!.id;
@@ -287,10 +291,12 @@ class OutfitScreenState extends State<OutfitScreen> {
       children: [
         Text(
           'Temperature range',
-          style: Theme.of(context).textTheme.headlineSmall,
+          style: Theme.of(context).textTheme.headlineMedium,
         ),
         RangeSlider(
           values: RangeValues(_minTemp.toDouble(), _maxTemp.toDouble()),
+          activeColor: Color(0xFFF1600D),
+          inactiveColor: Color(0xFFA5E9E8),
           min: 0,
           max: 30,
           divisions: 50,
@@ -314,7 +320,7 @@ class OutfitScreenState extends State<OutfitScreen> {
                 children: [
                   Text(
                     _minTemp.toString(),
-                    style: Theme.of(context).textTheme.titleMedium
+                    style: Theme.of(context).textTheme.headlineSmall
                   ),
                   Image(
                     width: 24,
@@ -330,7 +336,7 @@ class OutfitScreenState extends State<OutfitScreen> {
                 children: [
                   Text(
                     _maxTemp.toString(),
-                    style: Theme.of(context).textTheme.titleMedium),
+                    style: Theme.of(context).textTheme.headlineSmall),
                   Image(
                     width: 24,
                     height: 24,
@@ -349,7 +355,7 @@ class OutfitScreenState extends State<OutfitScreen> {
       contentPadding: EdgeInsets.all(0),
       title: Text(
         'Waterproof',
-        style: Theme.of(context).textTheme.headlineSmall,),
+        style: Theme.of(context).textTheme.headlineMedium,),
       value: _isWaterproof,
       onChanged: (bool value) {
         setState(() {
@@ -369,7 +375,7 @@ class OutfitScreenState extends State<OutfitScreen> {
       contentPadding: EdgeInsets.all(0),
         title: Text(
           'Windshield',
-          style: Theme.of(context).textTheme.headlineSmall,),
+          style: Theme.of(context).textTheme.headlineMedium,),
         value: _isWindshield,
         onChanged: (bool value) {
           setState(() {
