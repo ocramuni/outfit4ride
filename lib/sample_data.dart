@@ -142,4 +142,12 @@ class SampleData {
     category4,
     category5,
   ];
+
+  static List<String> allWeather = [
+    'cloudy',
+    'pouring',
+    'rainy',
+    'sunny',
+    'windy',
+  ];
 }
